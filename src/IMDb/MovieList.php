@@ -17,9 +17,9 @@ abstract class MovieList
         $movies = $ids = array();
 
         $this->getCrawler()->filterXpath("//a[contains(@href, '/title/tt')]")->each(function ($node, $i) use(&$ids) {
-            preg_match('/\d+/', $node->getAttribute('href'), $matches);
+            preg_match('/\d+/', $node->attr('href'), $matches);
 
-            $title = $node->nodeValue;
+            $title = $node->text();
             $ids[$matches[0]] = $title;
         });
 

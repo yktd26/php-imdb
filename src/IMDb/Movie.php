@@ -62,8 +62,8 @@ class Movie
 
         try {
             $this->getCrawler()->filterXpath("//div[@id='director-info']/div/a")->each(function ($node, $i) use (&$directors) {
-                preg_match('/\d+/', $node->getAttribute('href'), $matches);
-                $directors[$matches[0]] = $node->nodeValue;
+                preg_match('/\d+/', $node->attr('href'), $matches);
+                $directors[$matches[0]] = $node->text();
             });
         } catch (\Exception $e) {
         }
@@ -77,8 +77,8 @@ class Movie
 
         try {
             $this->getCrawler()->filter("table.cast td.nm a")->each(function ($node, $i) use (&$members) {
-                preg_match('/\d+/', $node->getAttribute('href'), $matches);
-                $members[$matches[0]] = $node->nodeValue;
+                preg_match('/\d+/', $node->attr('href'), $matches);
+                $members[$matches[0]] = $node->text();
             });
         } catch (\Exception $e) {
         }
@@ -92,7 +92,7 @@ class Movie
 
         try {
             $this->getCrawler()->filter("table.cast td.char")->each(function ($node, $i) use (&$characters) {
-                $characters[] = $node->nodeValue;
+                $characters[] = $node->text();
             });
         } catch (\Exception $e) {
         }
@@ -125,7 +125,7 @@ class Movie
 
         try {
             $this->getCrawler()->filterXpath("//div[@class='info-content']/a[contains(@href, '/Sections/Genres')]")->each(function ($node, $i) use (&$genres) {
-                $genres[] = $node->nodeValue;
+                $genres[] = $node->text();
             });
         } catch (\Exception $e) {
         }
@@ -139,7 +139,7 @@ class Movie
 
         try {
             $this->getCrawler()->filterXpath("//a[contains(@href, '/language')]")->each(function ($node, $i) use (&$languages) {
-                $languages[] = $node->nodeValue;
+                $languages[] = $node->text();
             });
         } catch (\Exception $e) {
             
@@ -154,7 +154,7 @@ class Movie
 
         try {
             $this->getCrawler()->filterXpath("//div[@class='info-content']/a[contains(@href, '/country/')]")->each(function ($node, $i) use (&$countries) {
-                $countries[] = $node->nodeValue;
+                $countries[] = $node->text();
             });
         } catch (\Exception $e) {
             
